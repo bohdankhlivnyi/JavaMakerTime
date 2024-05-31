@@ -2,11 +2,11 @@ package org.example;
 
 public class Archer extends Gladiator {
     public Archer() {
-        super(8, 12, 18, 15, 50, 0.25, 10, false);
+        super(2, 5, 0, 2, 0, 1, 14, 15, false);
     }
 
     @Override
     public void specialAbility() {
-        System.out.println("Archer uses Rapid Shot!");
+        System.out.println("Archer uses Rapid Fire!");
     }
 }

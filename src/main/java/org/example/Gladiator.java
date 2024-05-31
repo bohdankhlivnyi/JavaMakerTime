@@ -1,41 +1,43 @@
 package org.example;
 
 public abstract class Gladiator {
-    public int constitution;
-    public int strength;
-    public int xp;
-    public int dexterity;
-    public int level;
-    public int basicAttack;
-    public int basicHP;
-    public double critChance;
-    public int charisma;
-    public boolean haveShield;
+    private int constitution;
+    private int strength;
+    private int xp;
+    private int dexterity;
+    private int level;
+    private int charisma;
+    private int basicAttack;
+    private int basicHP;
+    private int currentHP;
+    private boolean haveShield;
 
-    public Gladiator(int constitution, int strength, int dexterity, int basicAttack, int basicHP, double critChance, int charisma, boolean haveShield) {
+    public Gladiator(int constitution, int strength, int xp, int dexterity, int level, int charisma, int basicAttack, int basicHP, boolean haveShield) {
         this.constitution = constitution;
         this.strength = strength;
-        this.xp = 0; // XP starts at 0
+        this.xp = xp;
         this.dexterity = dexterity;
-        this.level = 1; // Starting level
+        this.level = level;
+        this.charisma = charisma;
         this.basicAttack = basicAttack;
         this.basicHP = basicHP;
-        this.critChance = critChance;
-        this.charisma = charisma;
+        this.currentHP = basicHP + constitution * 5; // Initialize current HP
         this.haveShield = haveShield;
     }
 
-    // Getters
+    // Getters and Setters
     public int getConstitution() { return constitution; }
     public int getStrength() { return strength; }
     public int getXp() { return xp; }
+    public void setXp(int xp) { this.xp = xp; }
     public int getDexterity() { return dexterity; }
     public int getLevel() { return level; }
+    public int getCharisma() { return charisma; }
     public int getBasicAttack() { return basicAttack; }
     public int getBasicHP() { return basicHP; }
-    public double getCritChance() { return critChance; }
-    public int getCharisma() { return charisma; }
-    public boolean getHaveShield() { return haveShield; }
+    public int getCurrentHP() { return currentHP; }
+    public void setCurrentHP(int currentHP) { this.currentHP = currentHP; }
+    public boolean isHaveShield() { return haveShield; }
 
     // Abstract method for special ability
     public abstract void specialAbility();
