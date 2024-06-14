@@ -30,7 +30,7 @@ public class Main {
                 player = new Warrior();
                 break;
             default:
-                System.out.println("Invalid choice! Defaulting to Warrior.");
+                System.out.println("Defaulting to Warrior.");
                 player = new Warrior();
                 break;
         }
@@ -38,7 +38,33 @@ public class Main {
         System.out.println("You have chosen the class: " + player.getClass().getSimpleName());
         System.out.println("You have " + player.getCurrentHP() + "hp and max attack " + (player.getBasicAttack() + player.getStrength() * 3));
 
-        //початок гри
+        // Start the game loop
+        while (true) {
+            System.out.println("Choose an option:");
+            System.out.println("1. Start travel");
+            System.out.println("2. Show attributes");
+            System.out.println("3. Exit");
+
+            int menuChoice = scanner.nextInt();
+
+            switch (menuChoice) {
+                case 1:
+                    startTravel(player, scanner, monsterNames);
+                    break;
+                case 2:
+                    showAttributes(player);
+                    break;
+                case 3:
+                    System.out.println("Exiting game...");
+                    return;
+                default:
+                    System.out.println("Invalid choice! Please choose again.");
+                    break;
+            }
+        }
+    }
+
+    public static void startTravel(Gladiator player, Scanner scanner, String[] monsterNames) {
         while (true) {
             System.out.println("Do you want to start a battle? (yes/no)");
             String startBattle = scanner.next();
@@ -47,9 +73,9 @@ public class Main {
                 break;
             }
 
-            //створення рандомного монстра
+            // Generate a random monster
             String monsterName = monsterNames[randNumber(0, monsterNames.length)];
-            int monsterAttack = randNumber(5, 10) + player.getLevel() * 2;
+            int monsterAttack = randNumber(5, 15) + player.getLevel() * 2;
             int monsterHP = randNumber(20, 40) + player.getLevel() * 5;
 
             Monster monster = new Monster(monsterName, monsterAttack, monsterHP);
@@ -79,13 +105,9 @@ public class Main {
                     break;
             }
 
-            //після бою здоров'я відновлюється
+            // Restore player's HP after battle
             player.setCurrentHP(player.getBasicHP() + player.getConstitution() * 5);
         }
-    }
-
-    public static int randNumber(int min, int max) {
-        return new Random().nextInt(max - min) + min;
     }
 
     public static void fight(Gladiator player, Monster monster) {
@@ -94,9 +116,10 @@ public class Main {
         int giveXP = (int) Math.sqrt(monster.getHp() * monster.getAttack()) / 2;
 
         Scanner scanner = new Scanner(System.in);
+        Random random = new Random();
 
         while (player.getCurrentHP() > 0 && monster.getHp() > 0) {
-            //Хід гладіатора
+            // Player's turn
             System.out.println("Your turn. What do you want to do?");
             System.out.println("1. Attack");
             System.out.println("2. Block");
@@ -137,7 +160,14 @@ public class Main {
                 break;
             }
 
-            //Хід монстра
+            // Pause before monster's turn
+            try {
+                Thread.sleep(250); // Pause for 250 milliseconds
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            // Monster's turn
             System.out.println("The " + monster.getName() + " attacks you for " + monsterAttack + " damage!");
             if (!playerBlocked) {
                 player.setCurrentHP(player.getCurrentHP() - monsterAttack);
@@ -145,9 +175,9 @@ public class Main {
 
             if (player.getCurrentHP() <= 0) {
                 System.err.println("You were killed by the " + monster.getName() + "!");
-                //player.setXp(player.getXp() - player.getCurrentHP());
-                //System.err.println("You lose " + player.getXp());
-                break;
+                loseXP(player);
+                showMenuAfterDeath(player);
+                return;
             }
         }
     }
@@ -214,5 +244,59 @@ public class Main {
             player.setAttributePoints(player.getAttributePoints() - 1);
         }
         player.setCurrentHP(player.getBasicHP() + player.getConstitution() * 5);
+    }
+
+    public static void loseXP(Gladiator player) {
+        player.setXp(player.getXp() - player.getXp() / 2);
+        System.err.println("You lose " + player.getXp() / 2 + " XP!");
+        if (player.getXp() < 0) {
+            player.setXp(0);
+        }
+    }
+
+    public static void showAttributes(Gladiator player) {
+        System.out.println("Attributes:");
+        System.out.println("1. Constitution: " + player.getConstitution());
+        System.out.println("2. Strength: " + player.getStrength());
+        System.out.println("3. Dexterity: " + player.getDexterity());
+        System.out.println("4. Charisma: " + player.getCharisma());
+
+        System.out.println("Current XP: " + player.getXp());
+        System.out.println("XP needed for next level: " + (needXPToNextLevel - player.getXp()));
+        System.out.println("Level: " + player.getLevel());
+        System.out.println("Current HP: " + player.getCurrentHP());
+        System.out.println("Basic Attack: " + player.getBasicAttack());
+        System.out.println("Shield: " + (player.isHaveShield() ? "Yes" : "No"));
+    }
+
+    public static void showMenuAfterDeath(Gladiator player) {
+        Scanner scanner = new Scanner(System.in);
+        System.err.println("You have died!");
+        System.out.println("Choose an option:");
+        System.out.println("1. Start travel again");
+        System.out.println("2. Show attributes");
+        System.out.println("3. Exit");
+
+        int choice = scanner.nextInt();
+
+        switch (choice) {
+            case 1:
+                startTravel(player, scanner, new String[]{"Bandit", "Orc", "Troll", "Vampire", "Werewolf", "Dragon", "Zombie", "Skeleton", "Giant", "Demon", "Wendigo", "Predator"});
+                break;
+            case 2:
+                showAttributes(player);
+                break;
+            case 3:
+                System.out.println("Exiting game...");
+                System.exit(0);
+                break;
+            default:
+                System.out.println("Invalid choice! Please choose again.");
+                break;
+        }
+    }
+
+    public static int randNumber(int min, int max) {
+        return new Random().nextInt(max - min) + min;
     }
 }
