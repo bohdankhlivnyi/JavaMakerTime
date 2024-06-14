@@ -271,7 +271,7 @@ public class Main {
 
     public static void showMenuAfterDeath(Gladiator player) {
         Scanner scanner = new Scanner(System.in);
-        System.err.println("You have died!");
+        //System.err.println("You have died!");
         System.out.println("Choose an option:");
         System.out.println("1. Start travel again");
         System.out.println("2. Show attributes");
