@@ -49,7 +49,4 @@ public abstract class Gladiator {
     public boolean isHaveShield() { return haveShield; }
     public int getAttributePoints() { return attributePoints; }
     public void setAttributePoints(int attributePoints) { this.attributePoints = attributePoints; }
-
-    //Abstract method for special ability
-    public abstract void specialAbility();
 }
