@@ -5,9 +5,9 @@ import java.util.Scanner;
 
 public class Main {
     public static int needXPToNextLevel = 100;
-
+    public static String[] monsterNames = {"Bandit", "Orc", "Troll", "Vampire", "Werewolf", "Dragon", "Zombie", "Skeleton", "Giant", "Demon", "Wendigo", "Predator"};
     public static void main(String[] args) {
-        String[] monsterNames = {"Bandit", "Orc", "Troll", "Vampire", "Werewolf", "Dragon", "Zombie", "Skeleton", "Giant", "Demon", "Wendigo", "Predator"};
+
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Welcome to the Gladiator Game!");
@@ -281,7 +281,8 @@ public class Main {
 
         switch (choice) {
             case 1:
-                startTravel(player, scanner, new String[]{"Bandit", "Orc", "Troll", "Vampire", "Werewolf", "Dragon", "Zombie", "Skeleton", "Giant", "Demon", "Wendigo", "Predator"});
+                //startTravel(player, scanner, new String[]{"Bandit", "Orc", "Troll", "Vampire", "Werewolf", "Dragon", "Zombie", "Skeleton", "Giant", "Demon", "Wendigo", "Predator"});
+                startTravel(player, scanner, monsterNames);
                 break;
             case 2:
                 showAttributes(player);
