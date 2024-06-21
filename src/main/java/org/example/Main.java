@@ -37,8 +37,7 @@ public class Main {
 
         System.out.println("You have chosen the class: " + player.getClass().getSimpleName());
         System.out.println("You have " + player.getCurrentHP() + "hp and max attack " + (player.getBasicAttack() + player.getStrength() * 3));
-
-        // Початок гри
+        
         while (true) {
             System.out.println("Choose an option:");
             System.out.println("1. Start travel");
@@ -73,7 +72,6 @@ public class Main {
                 break;
             }
 
-            // Generate a random monster
             String monsterName = monsterNames[randNumber(0, monsterNames.length)];
             int monsterAttack = randNumber(5, 15) + player.getLevel() * 2;
             int monsterHP = randNumber(20, 40) + player.getLevel() * 5;
