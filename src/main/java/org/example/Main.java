@@ -38,7 +38,7 @@ public class Main {
         System.out.println("You have chosen the class: " + player.getClass().getSimpleName());
         System.out.println("You have " + player.getCurrentHP() + "hp and max attack " + (player.getBasicAttack() + player.getStrength() * 3));
 
-        // Start the game loop
+        // Початок гри
         while (true) {
             System.out.println("Choose an option:");
             System.out.println("1. Start travel");
@@ -105,7 +105,7 @@ public class Main {
                     break;
             }
 
-            // Restore player's HP after battle
+            // Після бою HP відновлюється
             player.setCurrentHP(player.getBasicHP() + player.getConstitution() * 5);
         }
     }
@@ -119,7 +119,7 @@ public class Main {
         Random random = new Random();
 
         while (player.getCurrentHP() > 0 && monster.getHp() > 0) {
-            // Player's turn
+            // Хід гладіатора
             System.out.println("Your turn. What do you want to do?");
             System.out.println("1. Attack");
             System.out.println("2. Block");
@@ -131,12 +131,12 @@ public class Main {
             boolean playerBlocked = false;
 
             switch (choice) {
-                case 1: // Attack
+                case 1: // Атака
                     playerAttack = randNumber(player.getBasicAttack(), player.getBasicAttack() + player.getStrength() * 3);
                     monster.setHp(monster.getHp() - playerAttack);
                     System.out.println("You attack the " + monster.getName() + " for " + playerAttack + " damage!");
                     break;
-                case 2: // Block
+                case 2: // Блок
                     playerBlocked = true;
                     System.out.println("You block the attack!");
                     if (player.isHaveShield()) {
@@ -160,14 +160,14 @@ public class Main {
                 break;
             }
 
-            // Pause before monster's turn
+            // Пауза перед ходом
             try {
-                Thread.sleep(250); // Pause for 250 milliseconds
+                Thread.sleep(250); // Пауза на 250 мілісекунд
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
 
-            // Monster's turn
+            // Хід монстра
             System.out.println("The " + monster.getName() + " attacks you for " + monsterAttack + " damage!");
             if (!playerBlocked) {
                 player.setCurrentHP(player.getCurrentHP() - monsterAttack);
@@ -271,7 +271,6 @@ public class Main {
 
     public static void showMenuAfterDeath(Gladiator player) {
         Scanner scanner = new Scanner(System.in);
-        //System.err.println("You have died!");
         System.out.println("Choose an option:");
         System.out.println("1. Start travel again");
         System.out.println("2. Show attributes");

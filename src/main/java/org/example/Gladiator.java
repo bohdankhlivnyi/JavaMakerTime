@@ -22,9 +22,9 @@ public abstract class Gladiator {
         this.charisma = charisma;
         this.basicAttack = basicAttack;
         this.basicHP = basicHP;
-        this.currentHP = basicHP + constitution * 5; //Initialize current HP
+        this.currentHP = basicHP + constitution * 5;
         this.haveShield = haveShield;
-        this.attributePoints = 0; //Initialize attribute points
+        this.attributePoints = 0;
     }
 
     //Getters and Setters
