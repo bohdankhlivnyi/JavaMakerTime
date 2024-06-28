@@ -37,7 +37,7 @@ public class Main {
 
         System.out.println("You have chosen the class: " + player.getClass().getSimpleName());
         System.out.println("You have " + player.getCurrentHP() + "hp and max attack " + (player.getBasicAttack() + player.getStrength() * 3));
-        
+
         while (true) {
             System.out.println("Choose an option:");
             System.out.println("1. Start travel");
@@ -278,7 +278,6 @@ public class Main {
 
         switch (choice) {
             case 1:
-                //startTravel(player, scanner, new String[]{"Bandit", "Orc", "Troll", "Vampire", "Werewolf", "Dragon", "Zombie", "Skeleton", "Giant", "Demon", "Wendigo", "Predator"});
                 startTravel(player, scanner, monsterNames);
                 break;
             case 2:
